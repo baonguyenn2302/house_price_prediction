@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dự đoán Giá Nhà</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+  <main class="container">
+    <h1>Ứng dụng Dự đoán Giá Nhà</h1>
+    <p>Nhập thông tin bất động sản để hệ thống ước tính giá bằng mô hình Machine Learning.</p>
+    <form id="prediction-form">
+      <h2>Thông tin bất động sản</h2>
+      <div class="form-grid">
+        <label>Diện tích (m²) *<div class="number-control"><button class="number-step" type="button" data-step="-1"
+              aria-label="Giảm diện tích">−</button><input name="Area" type="number" min="1" step="0.1"
+              required><button class="number-step" type="button" data-step="1" aria-label="Tăng diện tích">+</button>
+          </div></label>
+        <label>Mặt tiền (m)<div class="number-control"><button class="number-step" type="button" data-step="-1"
+              aria-label="Giảm mặt tiền">−</button><input name="Frontage" type="number" min="0" step="0.1"
+              ><button class="number-step" type="button" data-step="1"
+              aria-label="Tăng mặt tiền">+</button></div></label>
+        <label>Đường vào (m)<div class="number-control"><button class="number-step" type="button" data-step="-1"
+              aria-label="Giảm đường vào">−</button><input name="Access_Road" type="number" min="0" step="0.1"
+              ><button class="number-step" type="button" data-step="1"
+              aria-label="Tăng đường vào">+</button></div></label>
+        <label>Số tầng<div class="number-control"><button class="number-step" type="button" data-step="-1"
+              aria-label="Giảm số tầng">−</button><input name="Floors" type="number" min="0" step="1"
+              ><button class="number-step" type="button" data-step="1"
+              aria-label="Tăng số tầng">+</button></div></label>
+        <label>Phòng ngủ<div class="number-control"><button class="number-step" type="button" data-step="-1"
+              aria-label="Giảm số phòng ngủ">−</button><input name="Bedrooms" type="number" min="0" step="1"
+              ><button class="number-step" type="button" data-step="1"
+              aria-label="Tăng số phòng ngủ">+</button></div></label>
+        <label>Phòng tắm<div class="number-control"><button class="number-step" type="button" data-step="-1"
+              aria-label="Giảm số phòng tắm">−</button><input name="Bathrooms" type="number" min="0" step="1"
+              ><button class="number-step" type="button" data-step="1"
+              aria-label="Tăng số phòng tắm">+</button></div></label>
+        <label>Hướng nhà<select name="House_direction">
+            <option value="">-</option>
+            <option>Đông</option>
+            <option>Tây</option>
+            <option>Nam</option>
+            <option>Bắc</option>
+            <option>Đông - Bắc</option>
+            <option>Đông - Nam</option>
+            <option>Tây - Bắc</option>
+            <option>Tây - Nam</option>
+          </select></label>
+        <label>Hướng ban công<select name="Balcony_direction">
+            <option value="">-</option>
+            <option>Đông</option>
+            <option>Tây</option>
+            <option>Nam</option>
+            <option>Bắc</option>
+            <option>Đông - Bắc</option>
+            <option>Đông - Nam</option>
+            <option>Tây - Bắc</option>
+            <option>Tây - Nam</option>
+          </select></label>
+        <label>Pháp lý<select name="Legal_status">
+            <option value="">-</option>
+            <option value="Have certificate">Có giấy chứng nhận</option>
+            <option value="Sale contract">Hợp đồng mua bán</option>
+          </select></label>
+        <label>Nội thất<select name="Furniture_state">
+            <option value="">-</option>
+            <option value="Full">Đầy đủ</option>
+            <option value="Basic">Cơ bản</option>
+          </select></label>
+        <label>Tỉnh / Thành phố<select name="Location">
+            <option>-</option>
+            <option>Hồ Chí Minh</option>
+            <option>Hà Nội</option>
+            <option>Bình Dương</option>
+            <option>Đà Nẵng</option>
+            <option>Đồng Nai</option>
+            <option>Hải Phòng</option>
+            <option>Khánh Hòa</option>
+            <option>Hưng Yên</option>
+            <option>Long An</option>
+            <option>Bà Rịa Vũng Tàu</option>
+            <option>Bắc Ninh</option>
+            <option>Bình Thuận</option>
+            <option>Lâm Đồng</option>
+            <option>Cần Thơ</option>
+            <option>Quảng Ninh</option>
+            <option>Thanh Hóa</option>
+            <option>Kiên Giang</option>
+            <option>Đắk Lắk</option>
+            <option>Hà Nam</option>
+            <option>Bình Định</option>
+            <option>Quảng Nam</option>
+            <option>Hòa Bình</option>
+            <option>Phú Thọ</option>
+            <option>Vĩnh Phúc</option>
+            <option>Lào Cai</option>
+            <option>Thừa Thiên Huế</option>
+            <option>Nghệ An</option>
+            <option>Bắc Giang</option>
+            <option>Tiền Giang</option>
+            <option>Thái Bình</option>
+            <option>Thái Nguyên</option>
+            <option>Tây Ninh</option>
+            <option>Phú Yên</option>
+            <option>Ninh Thuận</option>
+            <option>Hà Tĩnh</option>
+            <option>Hải Dương</option>
+            <option>Quảng Trị</option>
+            <option>Other</option>
+          </select></label>
+      </div>
+      <button type="submit">Dự đoán</button>
+    </form>
+    <section id="result" class="hidden" aria-live="polite"></section>
+  </main>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
